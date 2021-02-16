@@ -228,7 +228,7 @@
                     <TryCatch.Try>
                       <Sequence sap2010:WorkflowViewState.IdRef="Sequence_14">
                         <antbot:LogCodeActivity DisplayName="LOG출력" sap2010:WorkflowViewState.IdRef="LogCodeActivity_17" logLevel="DEBUG" logMsg="&lt;&lt; Business Workflow Start &gt;&gt;" />
-                        <antbot:ExecuteXamlWorkflowCodeActivity DisplayName="실행하기-Workflow" sap2010:WorkflowViewState.IdRef="ExecuteXamlWorkflowCodeActivity_15" WorkflowPath="antSequence1.xaml">
+                        <antbot:ExecuteXamlWorkflowCodeActivity DisplayName="실행하기-Workflow" sap2010:WorkflowViewState.IdRef="ExecuteXamlWorkflowCodeActivity_15" WorkflowPath="Process\antSequence1.xaml">
                           <antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
                             <scg:Dictionary x:TypeArguments="x:String, Argument" />
                           </antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
@@ -366,7 +366,7 @@
       <Variable x:TypeArguments="x:String" Name="projectPath" />
       <Variable x:TypeArguments="x:String" Name="errorImagePath" />
     </StateMachine.Variables>
-    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
   </StateMachine>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -500,7 +500,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="LogCodeActivity_30" sap:VirtualizedContainerService.HintSize="323,92" />
-      <sap2010:ViewStateData Id="Sequence_22" sap:VirtualizedContainerService.HintSize="345,602">
+      <sap2010:ViewStateData Id="Sequence_22" sap:VirtualizedContainerService.HintSize="345,599">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -516,7 +516,7 @@
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
       <sap2010:ViewStateData Id="LogCodeActivity_35" sap:VirtualizedContainerService.HintSize="273,92" />
-      <sap2010:ViewStateData Id="TryCatch_4" sap:VirtualizedContainerService.HintSize="418,647" />
+      <sap2010:ViewStateData Id="TryCatch_4" sap:VirtualizedContainerService.HintSize="418,607" />
       <sap2010:ViewStateData Id="Transition_19" sap:VirtualizedContainerService.HintSize="430,498">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -574,7 +574,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="State_2" sap:VirtualizedContainerService.HintSize="452,2342">
+      <sap2010:ViewStateData Id="State_2" sap:VirtualizedContainerService.HintSize="179,97">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">370.5,331.5</av:Point>
@@ -595,7 +595,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="State_8" sap:VirtualizedContainerService.HintSize="179,97">
+      <sap2010:ViewStateData Id="State_8" sap:VirtualizedContainerService.HintSize="444,1053">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">100.5,331.5</av:Point>
@@ -649,7 +649,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ktds.AntBot.Studio.TemplateWorkflow.Flowchart_1" sap:VirtualizedContainerService.HintSize="654,1000" />
+      <sap2010:ViewStateData Id="ktds.AntBot.Studio.TemplateWorkflow.Flowchart_1" sap:VirtualizedContainerService.HintSize="654,960" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>

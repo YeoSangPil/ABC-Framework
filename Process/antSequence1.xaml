@@ -61,23 +61,27 @@
       <Variable x:TypeArguments="scg:Dictionary(x:String, x:String)" Name="config" />
     </Sequence.Variables>
     <antbot:LogCodeActivity DisplayName="로그남기기" sap2010:WorkflowViewState.IdRef="LogCodeActivity_1" logLevel="DEBUG" logMsg="Business 1" />
-    <antbot:LogCodeActivity DisplayName="로그남기기" logLevel="DEBUG" logMsg="Business 2" sap2010:WorkflowViewState.IdRef="LogCodeActivity_2" />
-    <antbot:LogCodeActivity DisplayName="로그남기기" logLevel="DEBUG" logMsg="Business 3" sap2010:WorkflowViewState.IdRef="LogCodeActivity_3" />
-    <sads:DebugSymbol.Symbol>dzVDOlxVc2Vyc1x1c2VyXERlc2t0b3BcQUJDLUZyYW1ld29ya1xhbnRTZXF1ZW5jZTEueGFtbAc7A0MOAgEBPwU/jAECAQZABUCMAQIBBEEFQYwBAgECP30/iQECAQdASUBVAgEFQUlBVQIBAw==</sads:DebugSymbol.Symbol>
+    <antbot:LogCodeActivity DisplayName="로그남기기" sap2010:WorkflowViewState.IdRef="LogCodeActivity_2" logLevel="DEBUG" logMsg="Business 2" />
+    <antbot:UIAutomatorActivity DelayAfter="{x:Null}" DelayBefore="{x:Null}" FindResult="{x:Null}" ResultElementData="{x:Null}" ResultElementImage="{x:Null}" ResultElementText="{x:Null}" WindowHandle="{x:Null}" ActionType="None" ActivityActionType="찾기" DisplayName="Ui Auto" ElementAttr="&lt;Name value=&quot;바탕 화면&quot; checked=&quot;true&quot; /&gt;&lt;ClassName value=&quot;SysListView32&quot; checked=&quot;true&quot; /&gt;&lt;LocalControlType value=&quot;LIST&quot; checked=&quot;true&quot; /&gt;&lt;AutomationId value=&quot;1&quot; checked=&quot;true&quot; /&gt;&lt;ControlType value=&quot;ControlType.List&quot; checked=&quot;true&quot; /&gt;" ElementClassPath="&lt;ind0 value=&quot;SysListView32&quot; checked=&quot;true&quot; /&gt;&lt;ind1 value=&quot;SysListView32&quot; checked=&quot;true&quot; /&gt;&lt;ind2 value=&quot;Progman&quot; checked=&quot;true&quot; /&gt;&lt;ind3 value=&quot;#32769&quot; checked=&quot;true&quot; /&gt;" ElementPosition="234, 672" FindAttrName="Name" FindFullScan="False" ImageFileName="iG5Sh0XeM4SxdXRGzxPA.png" IsControlView="False" IsDiffRectangle="False" IsRectangleDraw="True" OffsetX="-1" OffsetY="-1" ProcessName="explorer" Retry="3" WaitActive="False" WaitNotActive="False" WaitNotVisible="False" WaitVisible="False" WindowTitle="Program Manager" sap2010:WorkflowViewState.IdRef="UIAutomatorActivity_1" />
+    <Throw Exception="[New System.Exception(&quot;에러 강제 발생&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_1" />
+    <antbot:LogCodeActivity DisplayName="로그남기기" sap2010:WorkflowViewState.IdRef="LogCodeActivity_3" logLevel="DEBUG" logMsg="Business 3" />
+    <sads:DebugSymbol.Symbol>dz1DOlxVc2Vyc1x1c2VyXERlc2t0b3BcQUJDLUZyYW1ld29ya1xQcm9jZXNzXGFudFNlcXVlbmNlMS54YW1sDzsDRQ4CAQE/BT+MAQIBDkAFQIwBAgEMQQVByAoCAQZCBUJxAgEEQwVDjAECAQI/fT+JAQIBD0B9QIkBAgENQfwJQY0KAgELQaACQYsFAgEKQZgJQZsJAgEJQZ0FQa4HAgEIQYcJQZEJAgEHQhZCRAIBBUN9Q4kBAgED</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
-      <sap2010:ViewStateData Id="LogCodeActivity_1" sap:VirtualizedContainerService.HintSize="273,92" />
-      <sap2010:ViewStateData Id="LogCodeActivity_2" sap:VirtualizedContainerService.HintSize="273,92" />
-      <sap2010:ViewStateData Id="LogCodeActivity_3" sap:VirtualizedContainerService.HintSize="273,92" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="295,480">
+      <sap2010:ViewStateData Id="LogCodeActivity_1" sap:VirtualizedContainerService.HintSize="301,92" />
+      <sap2010:ViewStateData Id="LogCodeActivity_2" sap:VirtualizedContainerService.HintSize="301,92" />
+      <sap2010:ViewStateData Id="UIAutomatorActivity_1" sap:VirtualizedContainerService.HintSize="301,271" />
+      <sap2010:ViewStateData Id="Throw_1" sap:VirtualizedContainerService.HintSize="301,22" />
+      <sap2010:ViewStateData Id="LogCodeActivity_3" sap:VirtualizedContainerService.HintSize="301,92" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="323,853">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ktds.AntBot.Studio.Workflow_1" sap:VirtualizedContainerService.HintSize="335,560" />
+      <sap2010:ViewStateData Id="ktds.AntBot.Studio.Workflow_1" sap:VirtualizedContainerService.HintSize="363,933" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
