@@ -1,0 +1,178 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ktds.AntBot.Studio.Workflow"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:antbot="http://schemas.antbot.co.kr/AntBot/Activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:moie="clr-namespace:Microsoft.Office.Interop.Excel;assembly=FileLib"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="configPath" Type="InArgument(x:String)" />
+    <x:Property Name="conf" Type="OutArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property Name="configSheets" Type="InArgument(s:String[])" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>ktds.AntBot.Studio.Workflow_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.DependencyModel</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence DisplayName="[getConfigure]" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="sd:DataTable" Name="confDT" />
+      <Variable x:TypeArguments="x:Int32" Name="idx" />
+    </Sequence.Variables>
+    <antbot:LogCodeActivity DisplayName="LOG출력" sap2010:WorkflowViewState.IdRef="LogCodeActivity_1" logLevel="DEBUG" logMsg="[getConfigure] 기준정보 설정 시작" />
+    <antbot:ExecuteXamlWorkflowCodeActivity sap2010:Annotation.AnnotationText="arrProcess = {&quot;EXCEL&quot;}" DisplayName="Invoke Xaml" sap2010:WorkflowViewState.IdRef="ExecuteXamlWorkflowCodeActivity_1" WorkflowPath="Component\stopProcess.xaml">
+      <antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
+        <InArgument x:TypeArguments="s:String[]" x:Key="arrProcess">[{"EXCEL"}]</InArgument>
+      </antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
+    </antbot:ExecuteXamlWorkflowCodeActivity>
+    <Assign sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[conf]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)">[New Dictionary(Of String, String)]</InArgument>
+      </Assign.Value>
+    </Assign>
+    <antbot:ExcelApplicationScope ExcelReadPasswd="{x:Null}" ExcelWritePasswd="{x:Null}" CreateWhenNotFound="False" DisplayName="Excel Open Scope" ExcelFileName="[configPath]" sap2010:WorkflowViewState.IdRef="ExcelApplicationScope_1" InVisible="False" ReadOnlyOpen="False">
+      <ActivityAction x:TypeArguments="moie:Workbook">
+        <ActivityAction.Argument>
+          <DelegateInArgument x:TypeArguments="moie:Workbook" Name="OpenWorkBook" />
+        </ActivityAction.Argument>
+        <antbot:ForEachGenericCodeActivity x:TypeArguments="x:String" DisplayName="ForEach" sap2010:WorkflowViewState.IdRef="ForEachGenericCodeActivity`1_3" Values="[configSheets]">
+          <ActivityAction x:TypeArguments="x:String">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:String" Name="sheetName" />
+            </ActivityAction.Argument>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+              <antbot:LogCodeActivity DisplayName="LOG출력" sap2010:WorkflowViewState.IdRef="LogCodeActivity_5" logLevel="DEBUG" logMsg="[&quot;작업시트명: &quot; + sheetName + &quot; Sheet&quot;]" />
+              <antbot:ExcelReadCodeActivity CellName="{x:Null}" DisplayName="Excel Cell읽기(Range)" sap2010:WorkflowViewState.IdRef="ExcelReadCodeActivity_1" IncludeHeader="True" OutputDataTable="[confDT]" SheetName="[sheetName]" UsingStringType="True" />
+              <antbot:DataTableForEachCodeActivity DTList="[confDT]" DisplayName="DataTable Foreach" sap2010:WorkflowViewState.IdRef="DataTableForEachCodeActivity_1">
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+                  </ActivityAction.Argument>
+                  <antbot:IfThenCodeActivity Condition="[Not String.IsNullOrWhiteSpace(row(0).ToString)]" DisplayName="If Then" sap2010:WorkflowViewState.IdRef="IfThenCodeActivity_1">
+                    <ActivityAction>
+                      <Assign sap2010:WorkflowViewState.IdRef="Assign_2">
+                        <Assign.To>
+                          <OutArgument x:TypeArguments="x:String">[conf(row(0).ToString.Trim)]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                          <InArgument x:TypeArguments="x:String">[row(1).ToString.Trim]</InArgument>
+                        </Assign.Value>
+                      </Assign>
+                    </ActivityAction>
+                  </antbot:IfThenCodeActivity>
+                </ActivityAction>
+              </antbot:DataTableForEachCodeActivity>
+            </Sequence>
+          </ActivityAction>
+        </antbot:ForEachGenericCodeActivity>
+      </ActivityAction>
+    </antbot:ExcelApplicationScope>
+    <antbot:ForEachGenericCodeActivity x:TypeArguments="scg:KeyValuePair(x:String, x:String)" CurrentIndex="[idx]" DisplayName="ForEachGeneric" sap2010:WorkflowViewState.IdRef="ForEachGenericCodeActivity`1_1" Values="[conf]">
+      <ActivityAction x:TypeArguments="scg:KeyValuePair(x:String, x:String)">
+        <ActivityAction.Argument>
+          <DelegateInArgument x:TypeArguments="scg:KeyValuePair(x:String, x:String)" Name="item" />
+        </ActivityAction.Argument>
+        <antbot:LogCodeActivity DisplayName="LOG출력" sap2010:WorkflowViewState.IdRef="LogCodeActivity_3" logLevel="DEBUG" logMsg="[&quot;config(&quot; + idx.ToString + &quot;)  - &quot; + item.Key + &quot; : &quot; + System.Text.RegularExpressions.Regex.Replace(item.Value, &quot;(?&lt;!\r)\n&quot;, &quot; &quot;)]" />
+      </ActivityAction>
+    </antbot:ForEachGenericCodeActivity>
+    <antbot:LogCodeActivity DisplayName="LOG출력" sap2010:WorkflowViewState.IdRef="LogCodeActivity_2" logLevel="DEBUG" logMsg="[getConfigure] 기준정보 설정 종료" />
+    <sads:DebugSymbol.Symbol>dz9DOlxVc2Vyc1x1c2VyXERlc2t0b3BcQUJDLUZyYW1ld29ya1xDb21wb25lbnRcZ2V0Q29uZmlndXJlLnhhbWwhSQOLAQ4CAQFOBU6bAQIBLE8FUy4CASlUBVsOAgElXAWAASQCAQ6BAQWIASkCAQSJAQWJAZsBAgECTn1OmAECAS1P3QFP+QECAStRRVFQAgEqWUpZbQIBKFZLVlECASZcogFcsAECASNhCX4tAgEPgQHZAYEB4QECAQyBAWyBAXMCAQqGAQmGAb8CAgEFiQF9iQGYAQIBA2GlAWG1AQIBIWYNfBgCARCGAYEBhgG8AgIBBmcPZ8IBAgEeaA9o/gECARlpD3s1AgERZ4cBZ78BAgEfaMIBaMwBAgEcaNcBaOQBAgEaaTtpRQIBF24TeS8CARJuOG5qAgEWcBd3IAIBE3VCdVgCARVyQ3JfAgEU</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="LogCodeActivity_1" sap:VirtualizedContainerService.HintSize="360,92" />
+      <sap2010:ViewStateData Id="ExecuteXamlWorkflowCodeActivity_1" sap:VirtualizedContainerService.HintSize="360,111">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_1" sap:VirtualizedContainerService.HintSize="360,60" />
+      <sap2010:ViewStateData Id="LogCodeActivity_5" sap:VirtualizedContainerService.HintSize="306,92" />
+      <sap2010:ViewStateData Id="ExcelReadCodeActivity_1" sap:VirtualizedContainerService.HintSize="306,89" />
+      <sap2010:ViewStateData Id="Assign_2" sap:VirtualizedContainerService.HintSize="242,60" />
+      <sap2010:ViewStateData Id="IfThenCodeActivity_1" sap:VirtualizedContainerService.HintSize="276,201" />
+      <sap2010:ViewStateData Id="DataTableForEachCodeActivity_1" sap:VirtualizedContainerService.HintSize="306,307" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="328,692">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ForEachGenericCodeActivity`1_3" sap:VirtualizedContainerService.HintSize="344,798" />
+      <sap2010:ViewStateData Id="ExcelApplicationScope_1" sap:VirtualizedContainerService.HintSize="360,904" />
+      <sap2010:ViewStateData Id="LogCodeActivity_3" sap:VirtualizedContainerService.HintSize="323,92" />
+      <sap2010:ViewStateData Id="ForEachGenericCodeActivity`1_1" sap:VirtualizedContainerService.HintSize="360,198" />
+      <sap2010:ViewStateData Id="LogCodeActivity_2" sap:VirtualizedContainerService.HintSize="360,92" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="382,1781">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ktds.AntBot.Studio.Workflow_1" sap:VirtualizedContainerService.HintSize="422,1861" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

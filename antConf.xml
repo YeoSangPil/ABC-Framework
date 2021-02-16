@@ -1,0 +1,10 @@
+<Project>
+  <Name>ABC Framework</Name>
+  <Main>antMain.xaml</Main>
+  <Desc>ABC Framework</Desc>
+  <Key>C//yrt8F9WiABZn0hcR4d/kSF8ewDIbz4sPKfMuePgAHKpFPVrI6az5h3DJM26AEAgKvzFoWKhZOvZKl5kljUQ==</Key>
+  <StudioVesrion>2.1.1.4</StudioVesrion>
+  <Libraries>
+    <System.Activities>System.Activities</System.Activities>
+  </Libraries>
+</Project>
