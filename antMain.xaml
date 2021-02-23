@@ -272,38 +272,15 @@
                             <ActivityAction>
                               <Sequence sap2010:WorkflowViewState.IdRef="Sequence_19">
                                 <antbot:LogCodeActivity DisplayName="LOG출력" sap2010:WorkflowViewState.IdRef="LogCodeActivity_22" logLevel="DEBUG" logMsg="&lt;&lt; Error Handling Start &gt;&gt;" />
-                                <Sequence DisplayName="Sequence_에러 이미지 캡쳐" sap2010:WorkflowViewState.IdRef="Sequence_43">
-                                  <Sequence.Variables>
-                                    <Variable x:TypeArguments="x:String" Name="errorScreenShotDirectoryPath" />
-                                  </Sequence.Variables>
-                                  <Assign sap2010:WorkflowViewState.IdRef="Assign_43">
-                                    <Assign.To>
-                                      <OutArgument x:TypeArguments="x:String">[errorScreenShotDirectoryPath]</OutArgument>
-                                    </Assign.To>
-                                    <Assign.Value>
-                                      <InArgument x:TypeArguments="x:String">[Path.Combine(projectPath, "ErrorScreenShot")]</InArgument>
-                                    </Assign.Value>
-                                  </Assign>
-                                  <antbot:IfThenCodeActivity Condition="[Boolean.Parse(config(&quot;에러이미지_저장여부&quot;)) = False]" DisplayName="If Then" sap2010:WorkflowViewState.IdRef="IfThenCodeActivity_8">
-                                    <ActivityAction>
-                                      <antbot:DeleteDirectoryActivity ContinueOnError="True" DisplayName="디렉토리 삭제" sap2010:WorkflowViewState.IdRef="DeleteDirectoryActivity_1" Path="[errorScreenShotDirectoryPath]" />
-                                    </ActivityAction>
-                                  </antbot:IfThenCodeActivity>
-                                  <antbot:IfThenCodeActivity Condition="[(New DirectoryInfo(errorScreenShotDirectoryPath)).Exists = False]" DisplayName="If Then" sap2010:WorkflowViewState.IdRef="IfThenCodeActivity_9">
-                                    <ActivityAction>
-                                      <antbot:CreateDirectoryActivity ContinueOnError="{x:Null}" DisplayName="디렉토리 생성" sap2010:WorkflowViewState.IdRef="CreateDirectoryActivity_1" Path="[errorScreenShotDirectoryPath]" />
-                                    </ActivityAction>
-                                  </antbot:IfThenCodeActivity>
-                                  <Assign sap2010:WorkflowViewState.IdRef="Assign_44">
-                                    <Assign.To>
-                                      <OutArgument x:TypeArguments="x:String">[errorImagePath]</OutArgument>
-                                    </Assign.To>
-                                    <Assign.Value>
-                                      <InArgument x:TypeArguments="x:String">[Path.Combine(errorScreenShotDirectoryPath, "ScreenShot_" + DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png")]</InArgument>
-                                    </Assign.Value>
-                                  </Assign>
-                                  <antbot:LogCodeActivity DisplayName="로그남기기" sap2010:WorkflowViewState.IdRef="LogCodeActivity_42" logLevel="DEBUG" logMsg="[errorImagePath]" />
-                                  <antbot:ScreenCaptureCodeActivity ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" AreaXe="-1" AreaXs="-1" AreaYe="-1" AreaYs="-1" DisplayName="윈도우화면캡쳐" sap2010:WorkflowViewState.IdRef="ScreenCaptureCodeActivity_1" MoniterTarget="All" Overwrite="True" SaveImageType="Png" TargetFullName="[errorImagePath]" />
+                                <Sequence DisplayName="Sequence_에러 메일 전송" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                                  <antbot:ExecuteXamlWorkflowCodeActivity DisplayName="실행하기-Workflow" sap2010:WorkflowViewState.IdRef="ExecuteXamlWorkflowCodeActivity_23" WorkflowPath="Component\capcherErrorScreenshot.xaml">
+                                    <antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
+                                      <InArgument x:TypeArguments="x:String" x:Key="projectPath">[projectPath]</InArgument>
+                                      <OutArgument x:TypeArguments="x:String" x:Key="errorImagePath">[errorImagePath]</OutArgument>
+                                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="config">[config]</InArgument>
+                                    </antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
+                                  </antbot:ExecuteXamlWorkflowCodeActivity>
+                                  <antbot:LogCodeActivity DisplayName="로그남기기" sap2010:WorkflowViewState.IdRef="LogCodeActivity_42" logLevel="DEBUG" logMsg="[&quot;에러화면 스크린샷: &quot; + errorImagePath]" />
                                   <antbot:ExecuteXamlWorkflowCodeActivity DisplayName="실행하기-Workflow" sap2010:WorkflowViewState.IdRef="ExecuteXamlWorkflowCodeActivity_18" WorkflowPath="Component\sendErrorMail.xaml">
                                     <antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
                                       <InArgument x:TypeArguments="scg:Dictionary(x:String, x:String)" x:Key="config">[config]</InArgument>
@@ -366,7 +343,7 @@
       <Variable x:TypeArguments="x:String" Name="projectPath" />
       <Variable x:TypeArguments="x:String" Name="errorImagePath" />
     </StateMachine.Variables>
-    <sads:DebugSymbol.Symbol>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</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>dzFDOlxVc2Vyc1xzc2kwM1xEZXNrdG9wXEFCQy1GcmFtZXdvcmtcYW50TWFpbi54YW1siAE/A9sCEgIBAUEHyAIPAgF64QEPwwIXAgFeqQEP3AEXAgE1jQIXvwIfAgECQwukARYDAYMBpwFspwGJAQMBgAHfAWrfAYQBAgF+xgKHAcYCpAECAXzjAROHAh4CAWWKApQBigKuAQIBYosCbYsCigECAWCrARPaAR4CATePAhu5AjcCAQq8Ap8BvALMAQIBBr0ClwG9AqoBAgEERQ+LARoDAY8BogEPogG4AQMBjQGTAROdAR4DAYQB5QEX7AEiAgF1hQIXhQK8AQIBc/QBG4ACJgIBZqwBFawBtgECAVytARXYATECATrZARXZAbQBAgE4jwJAjwJTAgEzkQIftwIqAgELRhFGvAEDAb0BRxFHvwEDAboBSBF8LQMBmwF9EYEBOgMBlwGCARGKAS0DAZABogGIAaIBtQEDAY4BlAEVmwEeAwGIAZwBFZwBpgEDAYUB5gEZ5gHAAQIBeOcBGesBQgIBdoUCkAGFArkBAgF09QEd/AEmAgFu/QEd/QHGAQIBbP4BHf4B4gECAWn/AR3/AbABAgFnrAGOAawBswECAV2tATqtAVcCAVqvARnWAR4CATvZAY4B2QGxAQIBOZICIZICxQECATGTAiGjAiwCAR2kAiGrAioCARisAiGsAt0BAgEVrQIhtAIqAgERtQIhtQKNAQIBDrYCIbYCwwECAQxGigFGuQEDAb4BR60BR7wBAwG7AUg2SEsDAbgBShV6IAMBnAF9pQF9wQEDAZoBf1F/YAMBmAGCATaCAXYDAZUBhAEViAE+AwGRAZkBQ5kBTgMBiwGWAUSWAVEDAYkBnAGOAZwBowEDAYYB5gGSAeYBvQECAXnnAa8B5wHKAQIBd/oBS/oBVgIBcfcBTPcBWQIBb/0BlgH9AcMBAgFt/gHIAf4B3wECAWr/AZYB/wGtAQIBaK8BJ68BPwIBPLEBHcEBKAIBTMQBHdQBKAIBPpICmgGSAsIBAgEylAIjmgJMAgEpmwIjmwLLAQIBJpwCI6ICTAIBHqkCS6kCWQIBG6YCTKYCVgIBGawCmgGsAtoBAgEWsgJPsgJYAgEUrwJQrwJdAgEStQJStQJgAgEPtgKaAbYCwAECAQ1LF1IgAwG0AVMXWiADAbABWxdhQAMBqgFiF2kgAwGlAWoXcSADAaEBchd5IAMBnQGGAVSGAWEDAZMBhAGrAYQBzQEDAZIBsgEfsgGyAQIBWLMBH7cBSAIBVLgBH8ABOwIBTcUBH8UBuAECAUrGAR/KAUgCAUbLAR/TATsCAT+XAmaXAnYCAS+WAmKWAm8CAS2UArkBlALgAQIBLJgCd5gCfwIBKpsCnAGbAsgBAgEnnAK5AZwC1wECASWgAmOgAngCASOeAneeAn8CASGfAmefAncCAR9QXFBlAwG3AU1dTWUDAbUBWEVYTgMBswFVRlVTAwGxAV9ZX3oDAa8BW60BW8oBAwGuAV5qXnIDAawBXVVdZQMBqwFnQWdiAwGoAWRCZEwDAaYBb0RvaAMBpAFsRWxRAwGiAXdEd2YDAaABdEV0VAMBngGyAZgBsgGvAQIBWbMB8gGzAY4CAgFXtQFftQFuAgFVuAFEuAGEAQIBUroBI74BTAIBTsUBmAHFAbUBAgFLxgHyAcYBjgICAUnIAV/IAW4CAUfLAUTLAYQBAgFEzQEj0QFMAgFAvAFivAFvAgFQugG5AboB2wECAU/PAWLPAW8CAULNAbkBzQHbAQIBQQ==</sads:DebugSymbol.Symbol>
   </StateMachine>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -526,36 +503,30 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="LogCodeActivity_22" sap:VirtualizedContainerService.HintSize="388,92" />
-      <sap2010:ViewStateData Id="Assign_43" sap:VirtualizedContainerService.HintSize="366,60" />
-      <sap2010:ViewStateData Id="DeleteDirectoryActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="IfThenCodeActivity_8" sap:VirtualizedContainerService.HintSize="366,163" />
-      <sap2010:ViewStateData Id="CreateDirectoryActivity_1" sap:VirtualizedContainerService.HintSize="200,22" />
-      <sap2010:ViewStateData Id="IfThenCodeActivity_9" sap:VirtualizedContainerService.HintSize="366,163" />
-      <sap2010:ViewStateData Id="Assign_44" sap:VirtualizedContainerService.HintSize="366,60" />
-      <sap2010:ViewStateData Id="LogCodeActivity_42" sap:VirtualizedContainerService.HintSize="366,92" />
-      <sap2010:ViewStateData Id="ScreenCaptureCodeActivity_1" sap:VirtualizedContainerService.HintSize="366,22" />
-      <sap2010:ViewStateData Id="ExecuteXamlWorkflowCodeActivity_18" sap:VirtualizedContainerService.HintSize="366,89" />
-      <sap2010:ViewStateData Id="Sequence_43" sap:VirtualizedContainerService.HintSize="388,1013">
+      <sap2010:ViewStateData Id="LogCodeActivity_22" sap:VirtualizedContainerService.HintSize="323,92" />
+      <sap2010:ViewStateData Id="ExecuteXamlWorkflowCodeActivity_23" sap:VirtualizedContainerService.HintSize="296,89" />
+      <sap2010:ViewStateData Id="LogCodeActivity_42" sap:VirtualizedContainerService.HintSize="296,92" />
+      <sap2010:ViewStateData Id="ExecuteXamlWorkflowCodeActivity_18" sap:VirtualizedContainerService.HintSize="296,89" />
+      <sap2010:ViewStateData Id="Sequence_43" sap:VirtualizedContainerService.HintSize="323,474">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="Assign_41" sap:VirtualizedContainerService.HintSize="388,60" />
-      <sap2010:ViewStateData Id="LogCodeActivity_37" sap:VirtualizedContainerService.HintSize="388,92" />
-      <sap2010:ViewStateData Id="Assign_20" sap:VirtualizedContainerService.HintSize="388,60" />
-      <sap2010:ViewStateData Id="Delay_2" sap:VirtualizedContainerService.HintSize="388,22" />
-      <sap2010:ViewStateData Id="LogCodeActivity_36" sap:VirtualizedContainerService.HintSize="388,92" />
-      <sap2010:ViewStateData Id="Sequence_19" sap:VirtualizedContainerService.HintSize="410,1795">
+      <sap2010:ViewStateData Id="Assign_41" sap:VirtualizedContainerService.HintSize="323,60" />
+      <sap2010:ViewStateData Id="LogCodeActivity_37" sap:VirtualizedContainerService.HintSize="323,92" />
+      <sap2010:ViewStateData Id="Assign_20" sap:VirtualizedContainerService.HintSize="323,60" />
+      <sap2010:ViewStateData Id="Delay_2" sap:VirtualizedContainerService.HintSize="323,22" />
+      <sap2010:ViewStateData Id="LogCodeActivity_36" sap:VirtualizedContainerService.HintSize="323,92" />
+      <sap2010:ViewStateData Id="Sequence_19" sap:VirtualizedContainerService.HintSize="345,1256">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="IfThenCodeActivity_5" sap:VirtualizedContainerService.HintSize="426,1936" />
+      <sap2010:ViewStateData Id="IfThenCodeActivity_5" sap:VirtualizedContainerService.HintSize="361,1677" />
       <sap2010:ViewStateData Id="Transition_1" sap:VirtualizedContainerService.HintSize="430,498">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -574,7 +545,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="State_2" sap:VirtualizedContainerService.HintSize="179,97">
+      <sap2010:ViewStateData Id="State_2" sap:VirtualizedContainerService.HintSize="387,2547">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">370.5,331.5</av:Point>
@@ -595,7 +566,7 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="State_8" sap:VirtualizedContainerService.HintSize="444,1053">
+      <sap2010:ViewStateData Id="State_8" sap:VirtualizedContainerService.HintSize="179,97">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <av:Point x:Key="ShapeLocation">100.5,331.5</av:Point>
