@@ -7,6 +7,7 @@
 ### 1. Component
 
   #### 프레임워크에서 사용되는 기능이 저장되는 디렉터리 입니다.
+  #### <파일정보>
   ##### -capcherErrorScreenshot.xaml  // 에러화면을 캡쳐하는 기능입니다.
   ##### -checkProcessRun.xaml  // 프로세스가 실행중인지 체크하는 기능입니다. 실행중이지 않으면 오류를 발생시킵니다. (사용X)
   ##### -cleanDownloadPath.xaml // 프로젝트경로\Download 폴더안에 존재하는 모든 파일,폴더를 삭제하는 기능입니다.
