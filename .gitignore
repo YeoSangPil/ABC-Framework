@@ -1,2 +1,5 @@
 antConf.xml
-antMain.bak
+*.bak
+
+Component/*.bak
+Process/*.bak
