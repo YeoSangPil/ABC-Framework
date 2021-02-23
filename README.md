@@ -8,12 +8,12 @@
 
   #### 프레임워크에서 사용되는 기능이 저장되는 디렉터리 입니다.
   #### <파일정보>
-  ##### -capcherErrorScreenshot.xaml  // 에러화면을 캡쳐하는 기능입니다.
-  ##### -checkProcessRun.xaml  // 프로세스가 실행중인지 체크하는 기능입니다. 실행중이지 않으면 오류를 발생시킵니다. (사용X)
-  ##### -cleanDownloadPath.xaml // 프로젝트경로\Download 폴더안에 존재하는 모든 파일,폴더를 삭제하는 기능입니다.
-  ##### -getConfigure.xaml  // 프로젝트경로\Config\환경설정.xlsx 의 설정정보를 읽는 기능입니다.
-  ##### -sendErrorMail.xaml  // RPA프로세스 실행중 에러발생시 에러메일을 보내는 기능입니다.
-  ##### -stopProcess.xaml  // RPA프로세스 실행 및 재시도시 실행중인 프로세스를 종료하는 기능입니다. 강제종료이기 때문에 진행사항이 저장되지 않을 수 있습니다.
+  ##### -capcherErrorScreenshot.xaml: 에러화면을 캡쳐하는 기능입니다.
+  ##### -checkProcessRun.xaml: 프로세스가 실행중인지 체크하는 기능입니다. 실행중이지 않으면 오류를 발생시킵니다. (사용X)
+  ##### -cleanDownloadPath.xaml: 프로젝트경로\Download 폴더안에 존재하는 모든 파일,폴더를 삭제하는 기능입니다.
+  ##### -getConfigure.xaml: 프로젝트경로\Config\환경설정.xlsx 의 설정정보를 읽는 기능입니다.
+  ##### -sendErrorMail.xaml: RPA프로세스 실행중 에러발생시 에러메일을 보내는 기능입니다.
+  ##### -stopProcess.xaml: RPA프로세스 실행 및 재시도시 실행중인 프로세스를 종료하는 기능입니다. 강제종료이기 때문에 진행사항이 저장되지 않을 수 있습니다.
 
 ### 2. Config
 ### 3. Download
