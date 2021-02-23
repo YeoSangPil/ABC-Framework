@@ -4,7 +4,7 @@
 
 ## 프레임워크 파일구조
 
-1. Component
+code 1. Component
 
   code 프레임워크에서 사용되는 기능이 저장되는 디렉터리 입니다.
 
