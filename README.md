@@ -7,7 +7,7 @@
 ### 1. Component
 
   프레임워크에서 사용되는 기능이 저장되는 디렉터리 입니다.
-  ##### + capcherErrorScreenshot.xaml
+  ##### -capcherErrorScreenshot.xaml
 
 ### 2. Config
 ### 3. Download
