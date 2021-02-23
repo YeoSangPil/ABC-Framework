@@ -8,6 +8,7 @@
 
   #### 프레임워크에서 사용되는 기능이 저장되는 디렉터리 입니다.
   ##### -capcherErrorScreenshot.xaml  // 에러화면을 캡쳐하는 기능입니다.
+  ##### -checkProcessRun.xaml  // 프로세스가 실행중인지 체크하는 로직입니다. 실행중이지 않으면 강제종료합니다.
 
 ### 2. Config
 ### 3. Download
