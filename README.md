@@ -8,6 +8,7 @@
 
   프레임워크에서 사용되는 기능이 저장되는 디렉터리 입니다.
   ##### -capcherErrorScreenshot.xaml
+  #####  에러화면을 캡쳐하는 기능입니다.
 
 ### 2. Config
 ### 3. Download
