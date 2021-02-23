@@ -2,7 +2,9 @@
 ##### AntBot Community 사이트에 있는 프레임워크를 사용하기 편리하도록 수정하였습니다.
 ##### 원본은 https://antbot.co.kr/antbot/ (AntBot Community)에서 다운 받으실 수 있습니다.
 
-## 프레임 워크 
+## 프레임 워크 파일구조
+
+1. Component
 
 
 ### Update 이력
