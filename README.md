@@ -5,7 +5,13 @@
 ## 프레임 워크 파일구조
 
 1. Component
-
+2. Config
+3. Download
+4. ErrorScreenShot
+5. File
+6. imagesave
+7. Process
+8. antMain.xaml
 
 ### Update 이력
 2021-02-23: 에러화면 캡쳐 로직을 컴포넌트로 분리 및 오류 수정
