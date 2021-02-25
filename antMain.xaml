@@ -170,26 +170,23 @@
                 <State.Entry>
                   <Sequence sap2010:WorkflowViewState.IdRef="Sequence_26">
                     <antbot:LogCodeActivity DisplayName="LOG출력" sap2010:WorkflowViewState.IdRef="LogCodeActivity_23" logLevel="DEBUG" logMsg="&lt;&lt; End Process Start &gt;&gt;" />
-                    <antbot:ExecuteXamlWorkflowCodeActivity sap2010:Annotation.AnnotationText="arrProcess = stopProcesses" DisplayName="Invoke Xaml" WorkflowPath="Component\stopProcess.xaml">
+                    <antbot:ExecuteXamlWorkflowCodeActivity sap2010:Annotation.AnnotationText="arrProcess = stopProcesses" DisplayName="Invoke Xaml" sap2010:WorkflowViewState.IdRef="ExecuteXamlWorkflowCodeActivity_26" WorkflowPath="Component\stopProcess.xaml">
                       <antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
                         <InArgument x:TypeArguments="s:String[]" x:Key="arrProcess">[stopProcesses]</InArgument>
                       </antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
-                      <sap2010:WorkflowViewState.IdRef>ExecuteXamlWorkflowCodeActivity_26</sap2010:WorkflowViewState.IdRef>
                     </antbot:ExecuteXamlWorkflowCodeActivity>
-                    <antbot:IfThenCodeActivity Condition="[Boolean.Parse(config(&quot;Download파일_삭제여부_종료&quot;)) = True]" DisplayName="If Then">
+                    <antbot:IfThenCodeActivity Condition="[Boolean.Parse(config(&quot;Download파일_삭제여부_종료&quot;)) = True]" DisplayName="If Then" sap2010:WorkflowViewState.IdRef="IfThenCodeActivity_14">
                       <ActivityAction>
-                        <antbot:ExecuteXamlWorkflowCodeActivity DisplayName="실행하기-Workflow" WorkflowPath="Component\cleanDownloadPath.xaml">
+                        <antbot:ExecuteXamlWorkflowCodeActivity DisplayName="실행하기-Workflow" sap2010:WorkflowViewState.IdRef="ExecuteXamlWorkflowCodeActivity_27" WorkflowPath="Component\cleanDownloadPath.xaml">
                           <antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
                             <InArgument x:TypeArguments="x:String" x:Key="projectPath">[projectPath]</InArgument>
                           </antbot:ExecuteXamlWorkflowCodeActivity.ChildArguments>
-                          <sap2010:WorkflowViewState.IdRef>ExecuteXamlWorkflowCodeActivity_27</sap2010:WorkflowViewState.IdRef>
                         </antbot:ExecuteXamlWorkflowCodeActivity>
                       </ActivityAction>
-                      <sap2010:WorkflowViewState.IdRef>IfThenCodeActivity_14</sap2010:WorkflowViewState.IdRef>
                     </antbot:IfThenCodeActivity>
                     <If Condition="[systemError IsNot Nothing]" sap2010:WorkflowViewState.IdRef="If_12">
                       <If.Then>
-                        <If Condition="[config IsNot Nothing]" sap2010:WorkflowViewState.IdRef="If_11">
+                        <If Condition="[retryCnt = Integer.Parse(config(&quot;재시도_회수&quot;))]" sap2010:WorkflowViewState.IdRef="If_11">
                           <If.Then>
                             <antbot:LogCodeActivity DisplayName="로그남기기" sap2010:WorkflowViewState.IdRef="LogCodeActivity_45" logLevel="DEBUG" logMsg="프로세스 초기화중 에러가 발생했습니다." />
                           </If.Then>
@@ -330,7 +327,7 @@
       <Variable x:TypeArguments="x:String" Name="projectPath" />
       <Variable x:TypeArguments="x:String" Name="errorImagePath" />
     </StateMachine.Variables>
-    <sads:DebugSymbol.Symbol>dzBDOlxVc2Vyc1x1c2VyXERlc2t0b3BcQUJDLUZyYW1ld29ya1xhbnRNYWluLnhhbWx/PwPOAhICAQFBB7sCDwIBb9UBD7cCFwIBU6kBD9ABFwIBNYECF7MCHwIBAkMLpAEWAgF2pwFspwGJAQIBc9MBatMBhAECAXHXARP7AR4CAVr+AZQB/gGuAQIBV/8Bbf8BigECAVWrARPOAR4CATeDAhutAjcCAQqwAp8BsALMAQIBBrEClwGxAqoBAgEERQ+LARoDAYIBogEPogG4AQMBgAGTAROdAR4CAXfZARfgASICAWr5ARf5AbwBAgFo6AEb9AEmAgFbrAEVrAG2AQIBUa0BFbIBPgIBTbMBFb0BMQIBRr4BFcwBGgIBOs0BFc0BtAECATiDAkCDAlMCATOFAh+rAioCAQtGEUa8AQMBsAFHEUe/AQMBrQFIEXwtAwGOAX0RgQE6AwGKAYIBEYoBLQMBgwGiAYgBogG1AQMBgQGUARWbAR4CAXucARWcAaYBAgF42gEZ2gHAAQIBbdsBGd8BQgIBa/kBkAH5AbkBAgFp6QEd8AEmAgFj8QEd8QHGAQIBYfIBHfIB4gECAV7zAR3zAbABAgFcrAGOAawBswECAVKtAaMBrQG/AQIBUK8BVa8BZAIBTrMBOrMBegIBS7UBGboBQgIBR74BI74BQAIBO8ABGccBHgIBP8oBGcoBqAECAT3NAY4BzQGxAQIBOYYCIYYCxQECATGHAiGXAiwCAR2YAiGfAioCARigAiGgAt0BAgEVoQIhqAIqAgERqQIhqQKNAQIBDqoCIaoCwwECAQxGigFGuQEDAbEBR60BR7wBAwGuAUg2SEsDAasBShV6IAMBjwF9pQF9wQEDAY0Bf1F/YAMBiwGCATaCAXYDAYgBhAEViAE+AwGEAZkBQ5kBTgIBfpYBRJYBUQIBfJwBjgGcAaMBAgF52gGSAdoBvQECAW7bAa8B2wHKAQIBbO4BS+4BVgIBZusBTOsBWQIBZPEBlgHxAcMBAgFi8gHIAfIB3wECAV/zAZYB8wGtAQIBXbcBWLcBZQIBSbUBarUBjAECAUjAASfAAT8CAUDCAR3CAbABAgFExQEdxQG2AQIBQsoBkgHKAaUBAgE+hgKaAYYCwgECATKIAiOOAkwCASmPAiOPAssBAgEmkAIjlgJMAgEenQJLnQJZAgEbmgJMmgJWAgEZoAKaAaAC2gECARamAk+mAlgCARSjAlCjAl0CARKpAlKpAmACAQ+qApoBqgLAAQIBDUsXUiADAacBUxdaIAMBowFbF2FAAwGdAWIXaSADAZgBahdxIAMBlAFyF3kgAwGQAYYBVIYBYQMBhgGEAasBhAHNAQMBhQHCAZYBwgGtAQIBRcUBlgHFAbMBAgFDiwJmiwJ2AgEvigJiigJvAgEtiAK5AYgC4AECASyMAneMAn8CASqPApwBjwLIAQIBJ5ACuQGQAtcBAgEllAJjlAJ4AgEjkgJ3kgJ/AgEhkwJnkwJ3AgEfUFxQZQMBqgFNXU1lAwGoAVhFWE4DAaYBVUZVUwMBpAFfWV96AwGiAVutAVvKAQMBoQFeal5yAwGfAV1VXWUDAZ4BZ0FnYgMBmwFkQmRMAwGZAW9Eb2gDAZcBbEVsUQMBlQF3RHdmAwGTAXRFdFQDAZEB</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>dzBDOlxVc2Vyc1x1c2VyXERlc2t0b3BcQUJDLUZyYW1ld29ya1xhbnRNYWluLnhhbWx/PwPLAhICAQFBB7gCDwIBcNIBD7QCFwIBVKkBD80BFwIBNf4BF7ACHwIBAkMLpAEWAgF3pwFspwGJAQIBdNABatABhAECAXLUARP4AR4CAVv7AZQB+wGuAQIBWPwBbfwBigECAVarARPLAR4CATeAAhuqAjcCAQqtAp8BrQLMAQIBBq4ClwGuAqoBAgEERQ+LARoDAYMBogEPogG4AQMBgQGTAROdAR4CAXjWARfdASICAWv2ARf2AbwBAgFp5QEb8QEmAgFcrAEVrAG2AQIBUq0BFbEBPgIBTrIBFboBMQIBR7sBFckBGgIBOsoBFcoBtAECATiAAkCAAlMCATOCAh+oAioCAQtGEUa8AQMBsQFHEUe/AQMBrgFIEXwtAwGPAX0RgQE6AwGLAYIBEYoBLQMBhAGiAYgBogG1AQMBggGUARWbAR4CAXycARWcAaYBAgF51wEZ1wHAAQIBbtgBGdwBQgIBbPYBkAH2AbkBAgFq5gEd7QEmAgFk7gEd7gHGAQIBYu8BHe8B4gECAV/wAR3wAbABAgFdrAGOAawBswECAVOtAegBrQGEAgIBUa8BVa8BZAIBT7IBOrIBegIBTLQBGbgBQgIBSLsBI7sBQAIBO70BGcQBHgIBP8cBGccBqAECAT3KAY4BygGxAQIBOYMCIYMCxQECATGEAiGUAiwCAR2VAiGcAioCARidAiGdAt0BAgEVngIhpQIqAgERpgIhpgKNAQIBDqcCIacCwwECAQxGigFGuQEDAbIBR60BR7wBAwGvAUg2SEsDAawBShV6IAMBkAF9pQF9wQEDAY4Bf1F/YAMBjAGCATaCAXYDAYkBhAEViAE+AwGFAZkBQ5kBTgIBf5YBRJYBUQIBfZwBjgGcAaMBAgF61wGSAdcBvQECAW/YAa8B2AHKAQIBbesBS+sBVgIBZ+gBTOgBWQIBZe4BlgHuAcMBAgFj7wHIAe8B3wECAWDwAZYB8AGtAQIBXrYBWLYBZQIBSrQBrwG0AdEBAgFJvQEnvQFfAgFAvwEdvwGwAQIBRcIBHcIBtgECAUPHAZIBxwGlAQIBPoMCmgGDAsIBAgEyhQIjiwJMAgEpjAIjjALLAQIBJo0CI5MCTAIBHpoCS5oCWQIBG5cCTJcCVgIBGZ0CmgGdAtoBAgEWowJPowJYAgEUoAJQoAJdAgESpgJSpgJgAgEPpwKaAacCwAECAQ1LF1IgAwGoAVMXWiADAaQBWxdhQAMBngFiF2kgAwGZAWoXcSADAZUBchd5IAMBkQGGAVSGAWEDAYcBhAGrAYQBzQEDAYYBvwGWAb8BrQECAUbCAZYBwgGzAQIBRIgCZogCdgIBL4cCYocCbwIBLYUCuQGFAuABAgEsiQJ3iQJ/AgEqjAKcAYwCyAECASeNArkBjQLXAQIBJZECY5ECeAIBI48Cd48CfwIBIZACZ5ACdwIBH1BcUGUDAasBTV1NZQMBqQFYRVhOAwGnAVVGVVMDAaUBX1lfegMBowFbrQFbygEDAaIBXmpecgMBoAFdVV1lAwGfAWdBZ2IDAZwBZEJkTAMBmgFvRG9oAwGYAWxFbFEDAZYBd0R3ZgMBlAF0RXRUAwGSAQ==</sads:DebugSymbol.Symbol>
   </StateMachine>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
