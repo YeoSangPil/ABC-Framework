@@ -72,10 +72,10 @@
         <Throw Exception="[New System.Exception(&quot;메일전송방식에 해당하는 메일 프로토콜이 없습니다. 환경설정.xlsx를 확인해 주세요&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_1" />
       </Switch.Default>
       <antbot:EmailSendToOutlookCodeActivity Bcc="{x:Null}" ImportanceBool="{x:Null}" x:Key="OUTLOOK" Attachments="[capcherImagePath]" Body="[config(&quot;에러메일_본문&quot;).Replace(&quot;$ProcessName$&quot;, config(&quot;프로젝트명&quot;)).Replace(&quot;$Today$&quot;, DateTime.Now.ToString(&quot;yyyy.MM.dd HH:mm:ss&quot;)).Replace(&quot;$Error$&quot;, errorMessage)]" Cc="[config(&quot;에러메일_참조자&quot;)]" DisplayName="Outlook 이메일 보내기" sap2010:WorkflowViewState.IdRef="EmailSendToOutlookCodeActivity_1" SenderMailAddress="[config(&quot;에러메일_발신자&quot;)]" Subject="[config(&quot;에러메일_제목&quot;).Replace(&quot;$ProcessName$&quot;, config(&quot;프로젝트명&quot;)).Replace(&quot;$Today$&quot;, DateTime.Now.ToString(&quot;yyyy.MM.dd HH:mm:ss&quot;))]" To="[config(&quot;에러메일_수신자&quot;)]" />
-      <antbot:EmailSendSmtpCodeActivity Bcc="{x:Null}" Name="{x:Null}" TimeOut="{x:Null}" x:Key="SMTP" Body="[config(&quot;에러메일_본문&quot;).Replace(&quot;$ProcessName$&quot;, config(&quot;프로젝트명&quot;)).Replace(&quot;$Today$&quot;, DateTime.Now.ToString(&quot;yyyy.MM.dd HH:mm:ss&quot;)).Replace(&quot;$Error$&quot;, errorMessage)]" Cc="[config(&quot;에러메일_참조자&quot;)]" DisplayName="SMTP 이메일 보내기" EmailAddress="[config(&quot;SMTP_ID&quot;)]" EmailAttachments="[capcherImagePath]" From="[config(&quot;에러메일_발신자&quot;)]" sap2010:WorkflowViewState.IdRef="EmailSendSmtpCodeActivity_1" Password="[config(&quot;SMTP_PW&quot;)]" Port="[CInt(config(&quot;SMTP_포트&quot;))]" SecureConnection="Auto" Server="[config(&quot;SMTP_서버&quot;)]" Subject="[config(&quot;에러메일_제목&quot;).Replace(&quot;$ProcessName$&quot;, config(&quot;프로젝트명&quot;)).Replace(&quot;$Today$&quot;, DateTime.Now.ToString(&quot;yyyy.MM.dd HH:mm:ss&quot;))]" To="[config(&quot;에러메일_수신자&quot;)]" />
+      <antbot:EmailSendSmtpCodeActivity Bcc="{x:Null}" TimeOut="{x:Null}" x:Key="SMTP" Body="[config(&quot;에러메일_본문&quot;).Replace(&quot;$ProcessName$&quot;, config(&quot;프로젝트명&quot;)).Replace(&quot;$Today$&quot;, DateTime.Now.ToString(&quot;yyyy.MM.dd HH:mm:ss&quot;)).Replace(&quot;$Error$&quot;, errorMessage)]" Cc="[config(&quot;에러메일_참조자&quot;)]" DisplayName="SMTP 이메일 보내기" EmailAddress="[config(&quot;SMTP_ID&quot;)]" EmailAttachments="[capcherImagePath]" From="[config(&quot;에러메일_발신자&quot;)]" sap2010:WorkflowViewState.IdRef="EmailSendSmtpCodeActivity_1" Name="[config(&quot;에러메일_발신자명&quot;)]" Password="[config(&quot;SMTP_PW&quot;)]" Port="[CInt(config(&quot;SMTP_포트&quot;))]" SecureConnection="Auto" Server="[config(&quot;SMTP_서버&quot;)]" Subject="[config(&quot;에러메일_제목&quot;).Replace(&quot;$ProcessName$&quot;, config(&quot;프로젝트명&quot;)).Replace(&quot;$Today$&quot;, DateTime.Now.ToString(&quot;yyyy.MM.dd HH:mm:ss&quot;))]" To="[config(&quot;에러메일_수신자&quot;)]" />
     </Switch>
     <antbot:LogCodeActivity DisplayName="LOG출력" sap2010:WorkflowViewState.IdRef="LogCodeActivity_2" logLevel="DEBUG" logMsg="[sendErrorMail] 에러메일 전송 종료" />
-    <sads:DebugSymbol.Symbol>dzZDOlxVc2Vyc1x1c2VyXERlc2t0b3BcQUJDLUZyYW1ld29ya1xzZW5kRXJyb3JNYWlsLnhhbWwbRANPDgIBAUUFRZwBAgEnRgVMDgIBBE0FTZwBAgECRX1FmQECAShGM0ZZAgEFSgdKhAYCARxLB0u1BwIBCUgJSJsBAgEHTX1NmQECAQNK4QVKgQYCASVK7gJKjgMCASNKc0qHAQIBIUqNAUrqAgIBIEqrBErdBQIBH0qCBEqiBAIBHUuSB0uyBwIBGkvIA0vcAwIBGEvOAkvuAgIBFkttS8oCAgEVS9wFS44HAgEUS+IDS4IEAgESS5cDS7YDAgEQS+8ES5QFAgEOS7QFS9MFAgEMS8oES+kEAgEKSBpIbgIBCA==</sads:DebugSymbol.Symbol>
+    <sads:DebugSymbol.Symbol>d0FDOlxVc2Vyc1xzc2kwM1xEZXNrdG9wXEFCQy1GcmFtZXdvcmtcQ29tcG9uZW50XHNlbmRFcnJvck1haWwueGFtbBxEA08OAgEBRQVFnAECASlGBUwOAgEETQVNnAECAQJFfUWZAQIBKkYzRlkCAQVKB0qEBgIBHksHS8wHAgEJSAlImwECAQdNfU2ZAQIBA0rhBUqBBgIBJ0ruAkqOAwIBJUpzSocBAgEjSo0BSuoCAgEiSqsESt0FAgEhSoIESqIEAgEfS6kHS8kHAgEcS7gDS8wDAgEaS74CS94CAgEYS11LugICARdL8wVLpQcCARZL0gNL8gMCARRLhwNLpgMCARJLhgVLqwUCARBLywVL6gUCAQ5L4QRLgAUCAQxLtgRL1wQCAQpIGkhuAgEI</sads:DebugSymbol.Symbol>
   </Sequence>
   <sap2010:WorkflowViewState.ViewStateManager>
     <sap2010:ViewStateManager>
@@ -83,16 +83,16 @@
       <sap2010:ViewStateData Id="Throw_1" sap:VirtualizedContainerService.HintSize="200,22" />
       <sap2010:ViewStateData Id="EmailSendToOutlookCodeActivity_1" sap:VirtualizedContainerService.HintSize="337,178" />
       <sap2010:ViewStateData Id="EmailSendSmtpCodeActivity_1" sap:VirtualizedContainerService.HintSize="337,180" />
-      <sap2010:ViewStateData Id="Switch`1_1" sap:VirtualizedContainerService.HintSize="477,260" />
+      <sap2010:ViewStateData Id="Switch`1_1" sap:VirtualizedContainerService.HintSize="477,382" />
       <sap2010:ViewStateData Id="LogCodeActivity_2" sap:VirtualizedContainerService.HintSize="477,92" />
-      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="499,648">
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="499,770">
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </sap2010:ViewStateData>
-      <sap2010:ViewStateData Id="ktds.AntBot.Studio.Workflow_1" sap:VirtualizedContainerService.HintSize="539,728" />
+      <sap2010:ViewStateData Id="ktds.AntBot.Studio.Workflow_1" sap:VirtualizedContainerService.HintSize="539,850" />
     </sap2010:ViewStateManager>
   </sap2010:WorkflowViewState.ViewStateManager>
 </Activity>
